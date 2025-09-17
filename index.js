@@ -4,7 +4,7 @@ const countdown = document.getElementById('countdown');
 const timer = document.getElementById('timer');
 
 // Create audio element for background music
-const backgroundAudio = new Audio('./media/countdown.mp3'); // Replace with your audio file
+const backgroundAudio = new Audio('./media/countdown.mp3'); 
 backgroundAudio.loop = true; // Loop the music
 backgroundAudio.volume = 0.3; // Set volume (0.0 to 1.0)
 
@@ -53,15 +53,14 @@ video.onended = () => {
 
 // Allow user to unmute video and enable audio
 document.body.addEventListener("click", () => {
+    // Unmute video if it’s still playing
     video.muted = false;
     video.play();
-    
-    // Also ensure background audio can play after user interaction
-    if (countdown.classList.contains('show')) {
-        backgroundAudio.play().catch(error => {
-            console.log("Background audio play failed:", error);
-        });
-    }
+
+    // Unlock background audio right away
+    backgroundAudio.play().catch(error => {
+        console.log("Background audio play failed:", error);
+    });
 }, { once: true });
 
 // Countdown timer logic
