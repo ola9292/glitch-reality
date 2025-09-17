@@ -1,117 +1,26 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Coming Soon</title>
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            color: white;
-            text-align: center;
-            background: black;
-        }
-        @font-face {
-        font-family: 'Digital7';
-        src: url('fonts/digital-7.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-        }
-
-        .video-container,
-        .countdown {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video-container.fade-out {
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            pointer-events: none;
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
-             font-family: 'Digital7', monospace; 
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .countdown.show {
-            opacity: 1;
-        }
-    </style>
 </head>
-
 <body>
     <!-- Video -->
     <div class="video-container" id="videoContainer">
         <video autoplay playsinline muted id="introVideo">
-            <source src="./media/adobe-video.mp4" type="video/mp4">
+            <source id="videoSource" src="./media/adobe-video-desk.mp4" type="video/mp4">
         </video>
     </div>
 
     <!-- Countdown -->
     <div class="countdown" id="countdown">
         <div>
-            Launching in <span id="timer"></span>
+           <h1 id="timer"></h1>
         </div>
     </div>
 
-    <script>
-        const video = document.getElementById('introVideo');
-        const videoContainer = document.getElementById('videoContainer');
-        const countdown = document.getElementById('countdown');
-        const timer = document.getElementById('timer');
 
-        // Launch date
-        const launchDate = new Date("2025-12-31T00:00:00").getTime();
-
-        // When video ends, fade it out and show countdown
-        video.onended = () => {
-            videoContainer.classList.add('fade-out');
-            setTimeout(() => countdown.classList.add('show'), 1500);
-        };
-
-        document.body.addEventListener("click", () => {
-                video.muted = false;
-                video.play();
-            }, { once: true });
-        // Countdown timer logic
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
-
-            if (distance < 0) {
-                timer.innerHTML = "We're live!";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            timer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }, 1000);
-    </script>
+    <script src="index.js"></script>
 </body>
-
 </html>
