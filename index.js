@@ -26,32 +26,41 @@ window.addEventListener('resize', function() {
     
 });
 
+ const isMobile = window.innerWidth <= 600; // you can adjust breakpoint
+
+  if (isMobile) {
+      source.src = './media/adobe-video-mob.mp4'; // mobile-friendly video
+      video.load(); // reload the video with new source
+  }
+
+  // Optional: autoplay if muted
+  video.play();
 
 
-        // When video ends, fade it out and show countdown
-        video.onended = () => {
-            videoContainer.classList.add('fade-out');
-            setTimeout(() => countdown.classList.add('show'), 1500);
-        };
+// When video ends, fade it out and show countdown
+video.onended = () => {
+    videoContainer.classList.add('fade-out');
+    setTimeout(() => countdown.classList.add('show'), 1500);
+};
 
-        document.body.addEventListener("click", () => {
-                video.muted = false;
-                video.play();
-            }, { once: true });
-        // Countdown timer logic
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+document.body.addEventListener("click", () => {
+        video.muted = false;
+        video.play();
+    }, { once: true });
+// Countdown timer logic
+setInterval(() => {
+    const now = new Date().getTime();
+    const distance = launchDate - now;
 
-            if (distance < 0) {
-                timer.innerHTML = "We're live!";
-                return;
-            }
+    if (distance < 0) {
+        timer.innerHTML = "We're live!";
+        return;
+    }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            timer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }, 1000);
+    timer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}, 1000);
