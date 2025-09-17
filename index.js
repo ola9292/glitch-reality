@@ -52,16 +52,34 @@ video.onended = () => {
 };
 
 // Allow user to unmute video and enable audio
+// Unlock audio on first user interaction
 document.body.addEventListener("click", () => {
-    // Unmute video if it’s still playing
     video.muted = false;
     video.play();
 
-    // Unlock background audio right away
-    backgroundAudio.play().catch(error => {
-        console.log("Background audio play failed:", error);
+    // Preload/unlock audio but pause immediately
+    backgroundAudio.play().then(() => {
+        backgroundAudio.pause();
+        backgroundAudio.currentTime = 0; // reset to start
+    }).catch(error => {
+        console.log("Background audio unlock failed:", error);
     });
 }, { once: true });
+
+// When video ends, fade it out and start countdown + audio
+video.onended = () => {
+    videoContainer.classList.add('fade-out');
+
+    setTimeout(() => {
+        countdown.classList.add('show');
+
+        // Now play background audio
+        backgroundAudio.play().catch(error => {
+            console.log("Audio autoplay prevented:", error);
+        });
+    }, 1500);
+};
+
 
 // Countdown timer logic
 setInterval(() => {
