@@ -9,7 +9,7 @@ backgroundAudio.loop = true; // Loop the music
 backgroundAudio.volume = 0.3; // Set volume (0.0 to 1.0)
 
 // Launch date
-const launchDate = new Date("2025-09-31T00:00:00").getTime();
+const launchDate = new Date("2025-09-30T00:00:00").getTime();
 
 function handleScreenSizeChange(vidSource){
     source.src = './media/adobe-video-mob.mp4'; // mobile-friendly video
