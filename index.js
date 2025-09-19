@@ -27,7 +27,7 @@ window.addEventListener('resize', function() {
     }
 });
 
-const isMobile = window.innerWidth <= 600;
+const isMobile = window.innerWidth <= 900;
 
 if (isMobile) {
     source.src = './media/adobe-video-mob.mp4';
