@@ -101,7 +101,7 @@ setInterval(() => {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    timer.innerHTML = `${days} Days <br> ${hours}:${minutes}:${seconds}`;
+    timer.innerHTML = `${days} Days <br><br> ${hours}:${minutes}:${seconds}`;
 }, 1000);
 
 // Optional: Add volume control
